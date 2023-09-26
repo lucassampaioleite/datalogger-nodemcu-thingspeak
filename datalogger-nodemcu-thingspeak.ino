@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
 extern "C"{
-#include "user_interface.h" 
+  #include "user_interface.h" 
 }
 
 //credentials
@@ -42,12 +42,8 @@ long mockSensorValue(){
  
 void setup() {
   Serial.begin(115200);
-
   initWiFi();
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-
-  usrInit(); //start interrupt
- 
+  usrInit(); //start interrupt 
 }
  
 void loop() {
@@ -55,8 +51,8 @@ void loop() {
   if (_timeout){
     float sensor1 = mockSensorValue();
     float sensor2 = mockSensorValue();
-    int sensor3 = (int)mockSensorValue();
-    
+    int sensor3 = (int)mockSensorValue();  
+      
     if (client.connect(SERVER,80)) { //Starts a TCP client to send data
       String postStr = API_KEY;
              postStr +="&field1=";
@@ -75,7 +71,7 @@ void loop() {
        client.print(postStr.length());
        client.print("\n\n");
        client.print(postStr);
-   
+          
        Serial.print("Sensor1: ");
        Serial.print(sensor1);
        Serial.print(" Sensor2: ");
